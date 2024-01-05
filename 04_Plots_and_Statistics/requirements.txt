@@ -1,0 +1,8 @@
+sklearn
+scikit-bio==0.5.9
+pandas
+seaborn
+matlablib
+numpy
+scipy
+scikit-posthocs
