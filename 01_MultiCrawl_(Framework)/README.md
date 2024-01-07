@@ -7,7 +7,18 @@
 
 # MultiCrawl (v0.1.2) 
 
-MultiCrawl is a framework designed for running web measurements with different crawling setups across multiple computers, enabling near real-time website crawling with browsers like Firefox and Chrome. MultiCrawl also automates interactions with consent banners on websites and recognizes tracking requests. All measurement data is pushed to BigQuery for analysis.
+MultiCrawl is a framework designed for running web measurements with different crawling setups across multiple machines, enabling near real-time website crawling with browsers like Firefox and Chrome. MultiCrawl also automates interactions with consent banners on websites and recognizes tracking requests. All measurement data is pushed to BigQuery for analysis.
+
+We provide an overview of the measurement setup in the following figure:
+![Measurement pipeline](measurement_pipeline.png)
+Initially, we establish a PostgreSQL database and upload our site list. Next, we generate various Virtual Machines (VMs), such as on Google Cloud, tailored to our needs. We install and individually configure the framework in each VM, specifically adjusting browser settings. 
+
+You can tailor the framework to crawl websites with various or singular browser configurations based on your needs. Each distinct configuration requires one VM, while a single browser setup needs only one VM.
+
+Suggested resources per VM:
+- 4 vCPUs
+- 16 GB RAM
+- 80 GB SSD
 
 **Supported Browsers**: Chrome, Firefox
 
@@ -39,13 +50,13 @@ Before diving into the installation process, ensure you have the prerequisites r
 
 ## Running the Framework
 
-1. Set up an Ubuntu 20.04 VM.
-2. Install the required Python and Conda packages from `/req-pip.txt` and `/req-conda.txt`.
+1. Set up an Ubuntu 20.04 VM on your preferred cloud provider or locally.
+2. Clone this folder on the VM and install the required Python and Conda packages from `/req-pip.txt` and `/req-conda.txt` in the VM.
 3. Execute `install.sh` for OpenWPM installation.
 4. Configure a VPN connection on your VM (if needed).
-5. Name your VMs according to the `getMode()` function in `/setup.py`.
+5. Name your VMs according to the `getMode()` function in `/setup.py`. Note that each VM needs a unique name and that the name must be the same as the VM's hostname which is also should be defined as in `/setup.py`.
 6. Adjust the crawling preferences in the `getConfig()` function in `/setup.py` (if needed).
-7. Execute `restart.sh` on every VM to initiate the measurement.
+7. Execute `restart.sh` on every VM to start the measurement.
 
 ## Acknowledgements
 
